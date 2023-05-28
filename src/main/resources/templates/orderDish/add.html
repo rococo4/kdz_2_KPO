@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{orderDish.add.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{orderDish.add.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/orderDishs}" th:text="#{orderDish.add.back}" class="btn btn-secondary" />
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('orderDish')}" />
+            <form th:action="${T(kpo.kdz2.util.WebUtils).getRequest().requestURI}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='orderDish', field='quantity', type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='orderDish', field='price')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='orderDish', field='order', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='orderDish', field='dish', type='select')}" />
+                <input type="submit" th:value="#{orderDish.add.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>

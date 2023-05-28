@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{order.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{order.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/orders/add}" th:text="#{order.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${orders.empty}" th:text="#{order.list.empty}" />
+            <div th:if="${!orders.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th th:text="#{order.id.label}" scope="col" />
+                            <th th:text="#{order.status.label}" scope="col" />
+                            <th th:text="#{order.createdAt.label}" scope="col" />
+                            <th th:text="#{order.updatedAt.label}" scope="col" />
+                            <th th:text="#{order.user.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="order : ${orders}">
+                            <td th:text="${order.id}" />
+                            <td th:text="${order.status}" />
+                            <td th:text="${order.createdAt}" />
+                            <td th:text="${order.updatedAt}" />
+                            <td th:text="${order.user}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/orders/edit/{id}(id=${order.id})}" th:text="#{order.list.edit}" class="btn btn-sm btn-info" />
+                                    <form th:action="@{/orders/delete/{id}(id=${order.id})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button th:text="#{order.list.delete}" type="submit" class="btn btn-sm btn-danger" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

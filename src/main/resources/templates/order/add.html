@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{order.add.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{order.add.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/orders}" th:text="#{order.add.back}" class="btn btn-secondary" />
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('order')}" />
+            <form th:action="${T(kpo.kdz2.util.WebUtils).getRequest().requestURI}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='order', field='status')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='order', field='specialRequest', type='textarea')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='order', field='createdAt', inputClass='js-datetimepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='order', field='updatedAt', inputClass='js-datetimepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='order', field='user', type='select')}" />
+                <input type="submit" th:value="#{order.add.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>
